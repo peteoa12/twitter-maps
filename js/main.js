@@ -2,13 +2,13 @@ var GoogleMapApi = (function(options){
 
   var myLatLng = {lat: 33.742712, lng: -84.338520}; // initial center point of map
 
-    
+  var map, infoWindow;
 
   function initMap() {
-    var infowindow = new google.maps.InfoWindow();
-    var map = new google.maps.Map(document.getElementById('map'), {
+    infowindow = new google.maps.InfoWindow();
+    map = new google.maps.Map(document.getElementById('map'), {
       center: myLatLng,
-      zoom: 4
+      zoom: 3
     });
     
     var marker = new google.maps.Marker({
@@ -26,50 +26,28 @@ var GoogleMapApi = (function(options){
   
   function createMarker(result) {
     var marker = new google.maps.Marker({
-      position:result.geometry.location,
+      position: result.geometry.location,
       map: map,
       title: result.name,
       animation: google.maps.Animation.DROP
     });
     
     google.maps.event.addListener(marker, 'click', function() {
-        createInfoWindow(result,marker);
+        createInfoWindow(result, marker);
         infowindow.open(map, this);
     });
   };
 
   function createInfoWindow(result, marker) {
-    var contentString = `<h3 class="marker-title">${result.name}<h3><div class="marker-address">${result.formatted_address}</div>`
+    var contentString = `<h3 class="marker-title">${result.title}<h3>`
+    
+  	console.log("createInfoWindow", result, marker, contentString)
     infowindow.setContent(contentString);
   };
 
-
-  function processPlacesResults(results, status) {
-    setSearchResult(results);
-    if (status == google.maps.places.PlacesServiceStatus.OK) {
-      for (var i = 0; i < results.length; i++) {
-        var result = results[i];
-        createMarker(result);
-      }
-    }
-  };
-
-
-  function search() {
-    var searchItem = document.getElementById("searchField").value;
-    var request = {
-      location: myLatLng,
-      radius: '5',
-      query: searchItem,
-      openNow:true
-    };
-
-    var service = new google.maps.places.PlacesService(map);
-    service.textSearch(request, processPlacesResults);
-  }
-
   return {
-    init: initMap
+    init: initMap,
+    createMarker: createMarker
   };
 
 }());
@@ -97,20 +75,29 @@ var TwitterApi = (function(options) {
 		    var r = tweets[i];
 		    var status = r.text;
 		    console.log(r);
-		    // for (var j = 0; j < coordinates.length; j++) {
-		    // 	var geo = coordinates[i]
-		    // 	console.log(geo);
-		    // }
 
-		    // check for Twitter Handles
 		    var processedTweet = RegExModule.highlightTweet(status, keyword);
-		    // console.log(processedTweet);
-
-
-
+		   
 		    var $li = document.createElement('li');
 		    $li.innerHTML = processedTweet;
 		    $results.append($li);
+
+		    if(r.coordinates){
+		    	
+	    		var geo = r.coordinates.coordinates
+	    		console.warn(geo);
+	    		
+	    		GoogleMapApi.createMarker({
+	    			geometry: {
+	    				location: { 
+	    					lng: geo[0],
+	    					lat: geo[1]
+	    				}
+	    			},
+	    			title: processedTweet
+	    		});
+	    	
+		    }
 		}
 
 	}
@@ -129,7 +116,7 @@ var TwitterApi = (function(options) {
 	        params['q'] = keyword; 
 	        var $count_f = $form.find('input[name=count]');
 	        if ($count_f) {
-	            params['count'] = $count_f.val(); 
+	            params['count'] = 1000;
 	        }
 	        var $result_type_f = $form.find('select[name=result_type]');
 	        if ($result_type_f) {
