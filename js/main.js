@@ -8,7 +8,7 @@ var GoogleMapApi = (function(options){
     var infowindow = new google.maps.InfoWindow();
     var map = new google.maps.Map(document.getElementById('map'), {
       center: myLatLng,
-      zoom: 2
+      zoom: 4
     });
     
     var marker = new google.maps.Marker({
@@ -96,11 +96,15 @@ var TwitterApi = (function(options) {
 		for (var i = 0; i < tweets.length; i++) {
 		    var r = tweets[i];
 		    var status = r.text;
-
+		    console.log(r);
+		    // for (var j = 0; j < coordinates.length; j++) {
+		    // 	var geo = coordinates[i]
+		    // 	console.log(geo);
+		    // }
 
 		    // check for Twitter Handles
 		    var processedTweet = RegExModule.highlightTweet(status, keyword);
-		    console.log(processedTweet);
+		    // console.log(processedTweet);
 
 
 
@@ -163,7 +167,7 @@ var RegExModule = (function(options) {
 
 	function highlightTwitterHandle(tweet) {
 
-		var handleRE = /@(\w{1,15})\b/g;
+		var handleRE = /@(\w{1,15})/gi;
 		var newString = tweet.replace(handleRE,'<a class="highlight target="_blank" href="http://www.twitter.com/$1">@$1</a>' );
 
 		return newString;

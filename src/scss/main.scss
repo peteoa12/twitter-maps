@@ -46,11 +46,25 @@ html, body {
 }
 
 #map {
-  width:70%;
-  height: 500px;
-  margin: 30px 15%;
+  @include container;
+  height: 300px;
   border:1px solid black;
   border-radius: 4px;
+  margin-top: 30px;
+
+  @include breakpoint($medium) {
+    @include span(6);
+    margin-left: span(3);
+    margin-right: span(3);
+    height:400px;
+  }
+
+  @include breakpoint($large) {
+    @include span(8);
+    margin-left: span(2);
+    margin-right: span(2);
+    height:500px;
+  }
 
 }
 
