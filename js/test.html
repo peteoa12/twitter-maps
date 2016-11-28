@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<script>
+
+	var RegExModule = (function() {
+
+			function matchURL(string) {
+
+				var urlRE = new RegExp('/([^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/gi');
+				var matched = string.match(urlRE);
+
+				return matched;
+
+			}
+
+			function highlightTweet(tweet, keyword) {
+				
+			 	var processed = highlightURL(tweet)	
+				processed = highlightTwitterHandle(processed)		
+				processed = highlightKeyword(processed, keyword)		
+				return processed;
+			}
+
+			function highlightKeyword(string, word) {
+
+			}
+
+			function highlightTwitterHandle(tweet) {
+
+			}
+
+			function highlightURL(string) {
+				// match a URL in the string, and then modify the
+				// string to turn the URL into a hyperlinked URL
+
+				var newString = matchURL(string);
+
+				// process the matched URL ....
+
+				// (fill in code here)
+
+				// and then return the new string:
+				return newString;
+			}
+
+			function matchEmail(string) {
+
+				var emailRE = new RegExp(/(.+@.+\..+)/);
+				var matched = string.match(emailRE);
+
+				return matched;
+			}
+
+			function testRegEx(){
+				var output,
+				    text    = "@RayFranco is answering to @AnPel, this is a real '@username83' but this is an@email.com, and this is a @probablyfaketwitterusername",
+				    regex   = /(^|[^@\w])@(\w{1,15})\b/g,
+				    replace = '$1<a href="http://twitter.com/$2">@$2</a>';
+
+				output = text.replace( regex, replace );
+
+				console.log ( output );
+			}
+
+			return {
+				matchEmail: matchEmail,
+				matchURL: matchURL,
+				highlightURL: highlightURL
+			}
+
+	})();
+
+	</script>
+
+</body>
+</html>

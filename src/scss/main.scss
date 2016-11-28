@@ -1,0 +1,76 @@
+
+@import 'vendor/reset';
+@import 'base/variables';
+@import '../../node_modules/susy/sass/susy';
+@import '../../node_modules/breakpoint-sass/stylesheets/breakpoint';
+
+$susy: (
+  flow: ltr, 
+  output: float, 
+  math: fluid, 
+  column-width: 40px, 
+  container: 90%,
+  container-position: center, 
+  last-flow: to,
+  columns: 12,
+  gutters: 0.125,
+  gutter-position: after, 
+  global-box-sizing: border-box, 
+);
+
+$medium: 700px;
+$large: 960px;
+$jumbo: 1440px;
+
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding:0;
+  background-color: #AAB9BF;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrapper {
+  @include container;
+}
+
+div {
+  transition:all .25s ease-in-out;
+}
+
+#search {
+  text-align: center;
+  margin:15px 0;
+}
+
+#map {
+  width:70%;
+  height: 500px;
+  margin: 30px 15%;
+  border:1px solid black;
+  border-radius: 4px;
+
+}
+
+
+@import 'partials/header';
+@import 'components/buttons';
+@import 'components/forms';
+@import 'partials/results';
+@import 'partials/footer';
+
+
+
+
+
+
+
+
+
+
+
+
+
+

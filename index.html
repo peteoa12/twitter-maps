@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Week 2</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/css/main.min.css">
+</head>
+
+<body>
+   <div id="map"></div>
+    <div class="form-container">
+        <form name="search">
+            <label for="query">Quick search</label>
+            <input name="q" type="text" value="Falcons">
+            <button type="submit">Quick Search</button>
+            <div class="results">
+                <ul>
+                </ul>
+            </div>
+        </form>
+    </div>
+    
+    <script type="text/javascript" src="js/main.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_G3Bt7ecK_FXgRCAFQA9i-5y8ZPGp5H8&callback=GoogleMapApi.init&libraries=places" async defer></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+</body>
+
+</html>
