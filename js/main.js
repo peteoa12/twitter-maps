@@ -1,5 +1,5 @@
 var GoogleMapApi = (function(options){
-
+	
   var myLatLng = {lat: 33.742712, lng: -84.338520}; // initial center point of map
 
   var map, infoWindow;
@@ -40,8 +40,6 @@ var GoogleMapApi = (function(options){
 
   function createInfoWindow(result, marker) {
     var contentString = `<h3 class="marker-title">${result.title}<h3>`
-    
-  	console.log("createInfoWindow", result, marker, contentString)
     infowindow.setContent(contentString);
   };
 
@@ -70,11 +68,10 @@ var TwitterApi = (function(options) {
 	function displayTweets(tweets, $results, keyword) {
 
 		$results.empty();
-		// console.log(tweets);
 		for (var i = 0; i < tweets.length; i++) {
 		    var r = tweets[i];
 		    var status = r.text;
-		    console.log(r);
+
 
 		    var processedTweet = RegExModule.highlightTweet(status, keyword);
 		   
@@ -85,7 +82,6 @@ var TwitterApi = (function(options) {
 		    if(r.coordinates){
 		    	
 	    		var geo = r.coordinates.coordinates
-	    		console.warn(geo);
 	    		
 	    		GoogleMapApi.createMarker({
 	    			geometry: {
@@ -99,7 +95,6 @@ var TwitterApi = (function(options) {
 	    	
 		    }
 		}
-
 	}
 
 	//--------------------Search setup()---------//
