@@ -76,7 +76,6 @@ var TwitterApi = (function(options) {
 	}
 
 	//-------------------Display Tweets---------------//
-
 	function displayTweets(tweets, $results, keyword) {
 
 		$results.empty();
